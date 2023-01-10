@@ -1,4 +1,4 @@
-const cell = document.getElementsByClassName('cell');
+const cells = document.getElementsByClassName('cell');
 const winningCondition = [
     [0, 1, 2],
     [3, 4, 5],
@@ -11,14 +11,16 @@ const winningCondition = [
 
 ]
 let turn = 'x';
+let cellValue = ['','','','','','','','',''];
 
 const play = (i) => {
     if (!checkEndGame()) {
-        //check if cell is clickable or not
-        if (cell[i].innerHTML === '') {
-            //update cell
-            cell[i].innerHTML = turn === 'x' ? 'x' : 'o';
-            cell[i].classList.add(`${turn === 'x' ? 'x' : 'o'}`);
+        //check if cells is clickable or not
+        if (cells[i].innerHTML === '') {
+            //update cells
+            cellValue[i] = turn === 'x' ? 'x' : 'o';
+            cells[i].innerHTML = cellValue[i];
+            cells[i].classList.add(`${cellValue[i] === 'x' ? 'x' : 'o'}`);
             //check if game is over or not
             if (checkEndGame()) {
                 let h1 = document.createElement('h1');
@@ -36,9 +38,9 @@ const play = (i) => {
 }
 const checkEndGame = () => {
     for (let j = 0; j < winningCondition.length; j++) {
-        let a = cell[winningCondition[j][0]].innerHTML;
-        let b = cell[winningCondition[j][1]].innerHTML;
-        let c = cell[winningCondition[j][2]].innerHTML;
+        let a = cellValue[winningCondition[j][0]];
+        let b = cellValue[winningCondition[j][1]];
+        let c = cellValue[winningCondition[j][2]];
 
         if (a === turn && b === turn && c === turn) {
             return true
@@ -51,8 +53,8 @@ const checkEndGame = () => {
 
 
 
-for (let i = 0; i < cell.length; i++) {
-    cell[i].addEventListener('click', () => play(i));
+for (let i = 0; i < cells.length; i++) {
+    cells[i].addEventListener('click', () => play(i));
 
 }
 
